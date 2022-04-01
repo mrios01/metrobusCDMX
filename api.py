@@ -18,5 +18,15 @@ connection = motor.MotorClient(
 #Get an instance of database collection metrobus
 db = connection.metrobus
 
-
+#Define our application and API route paths
+app = tornado.web.Application(
+    [
+        (r"/municipality/(?P<municipality_name>[a-zA-Z_-]{1,50}$)", MunicipalityHandler),
+        (r"/municipalities", MunicipalitiesHandler),
+        (r"/id/(?P<id>[0-9]{1,10}$)", VehicleHandler),
+        (r"/all_units", AllUnitsHandler),
+        (r"/", MainHandler)
+    ],
+    db=db,
+)
 
