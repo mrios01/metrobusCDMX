@@ -57,7 +57,9 @@ for item in metrobus_data['records']:
         #print(location_data['long_name'])
         #Transformar información sin acentos y en minúsculas
         location[location_data['types'][0]]=unidecode.unidecode(location_data['long_name'].lower())
-    #copomex_response = requests.get('https://api.copomex.com/query/info_cp/'+str(location['postal_code'])+'?token=pruebas')    
+    #In case of using cloud servers use copomex service for 
+    #finding a municipality given a postal code
+    #copomex_response = requests.get('https://api.copomex.com/query/info_cp/'+str(location['postal_code'])+'?token=COPOMEX_API_KEYS')    
     #copomex_data = copomex_response.content.decode('utf-8')
     #copomex_json = json.loads(copomex_data)
     #location['municipality'] = copomex_json[0]['response']['municipio']
@@ -65,6 +67,8 @@ for item in metrobus_data['records']:
     #Find the municipality given a posta code
     #Use micodigopostal.org as a free source to find municipality given a postal code
     #Service is "free"
+    #It only works on local machine
+    #Cloud servers create a CORS 403 forbidden error
     tables = pd.read_html('https://micodigopostal.org/buscarcp.php?buscar=' + str(location['postal_code']))
     cp_table = tables[0]
     #Transform data to lower case and no accents
