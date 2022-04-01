@@ -24,6 +24,13 @@ db = client.metrobus
 buses =  db.buses
 postal_code = db.postal_code
 
+#Retrieve Data from Mexico City's metrobus 
+metrobus_url = 'https://datos.cdmx.gob.mx/datastore/dump/ad360a0e-b42f-482c-af12-1fd72140032e?format=json'
+fileobj = urllib.request.urlopen(metrobus_url)
+metrobus_response=(fileobj.read().decode('utf-8'))
+metrobus_data = json.loads(metrobus_response)
+#pprint.pprint(data)
+
 #Get keys from field's array except for 'id'
 key_data =[]
 for item in metrobus_data['fields']:
