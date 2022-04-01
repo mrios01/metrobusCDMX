@@ -18,6 +18,14 @@ connection = motor.MotorClient(
 #Get an instance of database collection metrobus
 db = connection.metrobus
 
+#Define our JSONEncoder:
+#Extensible JSON encoder for Python data structures.
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
 #Define our application and API route paths
 app = tornado.web.Application(
     [
