@@ -18,6 +18,40 @@ connection = motor.MotorClient(
 #Get an instance of database collection metrobus
 db = connection.metrobus
 
+#/municipalities path Prints a List of all available municipalities
+class MunicipalitiesHandler(tornado.web.RequestHandler):
+    #Set Headers Contant Type as Application Json
+    def set_default_headers(self):
+        self.set_header("Content-Type", 'application/json')
+
+    async def get(self):
+        all_municipalities = []
+        municipalities_document = await self.settings["db"]["postal_code"].find().to_list(200)
+        for item in municipalities_document:
+            all_municipalities.append(item["municipality"])
+        self.write(JSONEncoder().encode(all_municipalities))
+
+#/all_units path Prints a List with all available units
+class AllUnitsHandler(tornado.web.RequestHandler):
+    #Set Headers Contant Type as Application Json
+    def set_default_headers(self):
+        self.set_header("Content-Type", 'application/json')
+
+    async def get(self):
+        all_units = []
+        all_units_document = await self.settings["db"]["buses"].find().to_list(200)
+        for item in all_units_document:
+            all_units.append(item["vehicle_id"])
+        self.write(JSONEncoder().encode(all_units))
+
+#/ Root Path Prints "Hello World"
+class MainHandler(tornado.web.RequestHandler):
+    #Set Headers Contant Type as Application Json
+    def set_default_headers(self):
+        self.set_header("Content-Type", 'application/json')
+    def get(self):
+        self.write("Hello World")
+
 #Define our JSONEncoder:
 #Extensible JSON encoder for Python data structures.
 class JSONEncoder(json.JSONEncoder):
