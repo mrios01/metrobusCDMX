@@ -30,3 +30,7 @@ app = tornado.web.Application(
     db=db,
 )
 
+#Start our application on port 8000
+if __name__ == "__main__":
+    app.listen(8000)
+    tornado.ioloop.IOLoop.current().start()
