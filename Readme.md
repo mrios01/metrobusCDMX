@@ -20,4 +20,5 @@ In your browser run:
 
 Flow Diagram for DataPipeline:
 
+![alt text](https://github.com/mrios01/metrobusCDMX/blob/main/img/flow%20diagram.jpg)
 
