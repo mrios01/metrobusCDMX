@@ -62,6 +62,9 @@ for item in metrobus_data['records']:
     #copomex_response = requests.get('https://api.copomex.com/query/info_cp/'+str(location['postal_code'])+'?token=COPOMEX_API_KEYS')    
     #copomex_data = copomex_response.content.decode('utf-8')
     #copomex_json = json.loads(copomex_data)
+    #municipality = copomex_json[0]['response']['municipio']
+    #municipality_lowercase = unidecode.unidecode(municipality.lower())
+    #municipality_final = re.sub('[ .]', '', municipality_lowercase)
     #location['municipality'] = copomex_json[0]['response']['municipio']
     #pprint.pprint(location['postal_code'])
     #Find the municipality given a posta code
