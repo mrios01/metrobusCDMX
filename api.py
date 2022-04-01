@@ -18,6 +18,23 @@ connection = motor.MotorClient(
 #Get an instance of database collection metrobus
 db = connection.metrobus
 
+
+
+
+
+
+#/id/(?P<id>[0-9]{1,10}$) path Give location data for a given bus unit
+class VehicleHandler(tornado.web.RequestHandler):
+    #Set Headers Contant Type as Application Json
+    def set_default_headers(self):
+        self.set_header("Content-Type", 'application/json')
+
+    async def get(self, id):
+        id = id
+        vehicle_document = await self.settings["db"]["buses"].find_one({'vehicle_id': int(id)})
+        location = vehicle_document["location"]
+        self.write(JSONEncoder().encode(location))
+
 #/municipalities path Prints a List of all available municipalities
 class MunicipalitiesHandler(tornado.web.RequestHandler):
     #Set Headers Contant Type as Application Json
